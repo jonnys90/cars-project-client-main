@@ -1,0 +1,6 @@
+.header-gradient {
+  background-image: linear-gradient(to bottom, #1e285d, #1e295d00);
+}
+.header-items-white > * {
+  color: white;
+}
