@@ -34,9 +34,9 @@ const HomePage: FC = () => {
     try {
       const options = {
         method: "POST",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
+        // headers: {
+        //   "content-type": "application/x-www-form-urlencoded",
+        // },
         data: qs.stringify({ username }),
         url: "http://localhost/rest/setUser.asp",
       };

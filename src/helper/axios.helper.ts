@@ -2,6 +2,8 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:3030/api/v1";
 axios.defaults.withCredentials = true;
+axios.defaults.headers.common["Content-Type"] =
+  "application/x-www-form-urlencoded";
 // axios.defaults.baseURL = "https://monkfish-app-z9uza.ondigitalocean.app/bcard2";
 // axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 

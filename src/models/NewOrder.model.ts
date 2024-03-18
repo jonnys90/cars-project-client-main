@@ -1,7 +1,7 @@
 export default class NewOrder {
-  id: number;
-  quantity: number;
-  constructor(id: number, quantity: number) {
+  id: string;
+  quantity: string;
+  constructor(id: string, quantity: string) {
     this.id = id;
     this.quantity = quantity;
   }

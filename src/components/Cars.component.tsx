@@ -18,6 +18,8 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
   const [newOrderCars, setNewOrderCars] = useState<Order[]>(() => {
     const newOrderCars: Order[] = [];
     for (let car of cars) {
+      console.log("car", car);
+      if (car.quantity <= 0) continue;
       newOrderCars.push(new Order(car.id, car.carName, 0));
     }
     return newOrderCars;
@@ -49,7 +51,7 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
     setNewOrderCars((prev: Order[]) => {
       let newNewOrderCars = JSON.parse(JSON.stringify(prev));
       let order = newNewOrderCars.find(
-        (order: Order) => order.id === parseInt(e.target.id)
+        (order: Order) => order.id === e.target.id
       );
       if (order) {
         order.quantity = val;
@@ -58,8 +60,17 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
     });
   };
   const handleAddBtnClick = () => {
+    console.log("newOrderCars", newOrderCars);
     onSubmit(newOrderCars);
   };
+  if (newOrderCars.length == 0)
+    return (
+      <div className="container mx-auto">
+        <Alert color="warning" rounded>
+          אין רכבים זמינים
+        </Alert>
+      </div>
+    );
   return (
     <div className="container mx-auto">
       <Table className="text-right">
