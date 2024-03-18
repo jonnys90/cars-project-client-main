@@ -56,14 +56,30 @@ const OrdersPage: FC = () => {
   const handleNewCarsSubmit = async (newCars: Order[]) => {
     try {
       let normalizedCars: NewOrder[] = [];
+      let carsOverQuantity = "";
       for (let car of newCars) {
         if (car.quantity <= 0) continue;
+        let carInCars = cars.find((car: Order) => car.id === car.id);
+        if (!carInCars) continue;
+        if (carInCars.quantity < car.quantity) {
+          carsOverQuantity += car.carName + ", ";
+          continue;
+        }
         normalizedCars.push({
           id: car.id,
           quantity: car.quantity + "",
         });
       }
-      if (!normalizedCars.length) return;
+      if (!normalizedCars.length) {
+        let msg = "כמות הרכבים שהזנת גדולה מהמוצרים במלאי ברכבים הבאים";
+        if (carsOverQuantity) {
+          msg += carsOverQuantity.slice(0, -2);
+        } else {
+          msg = "אנא בחר רכב";
+        }
+        toast.error(msg);
+        return;
+      }
       const options = {
         method: "POST",
         data: "cars=" + JSON.stringify(normalizedCars),
