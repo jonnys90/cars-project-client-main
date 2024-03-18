@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -9,12 +8,10 @@ import Router from "./routes/router";
 
 function App() {
   return (
-    <Fragment>
-      <CLayout>
-        <ToastContainer />
-        <Router />
-      </CLayout>
-    </Fragment>
+    <CLayout>
+      <ToastContainer position="top-left" />
+      <Router />
+    </CLayout>
   );
 }
 

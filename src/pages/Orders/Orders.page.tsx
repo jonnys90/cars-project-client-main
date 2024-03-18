@@ -22,7 +22,7 @@ const OrdersPage: FC = () => {
       try {
         const options = {
           method: "GET",
-          url: "http://localhost/rest/getCars.asp",
+          url: "/getCars.asp",
         };
         let { data } = await axios(options);
         setCars(data);
@@ -37,7 +37,7 @@ const OrdersPage: FC = () => {
       try {
         const options = {
           method: "GET",
-          url: "http://localhost/rest/getUserCars.asp",
+          url: "/getUserCars.asp",
         };
         let { data } = await axios(options);
         let myOrders: Order[] = [];
@@ -63,13 +63,11 @@ const OrdersPage: FC = () => {
           quantity: car.quantity + "",
         });
       }
+      if (!normalizedCars.length) return;
       const options = {
         method: "POST",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
         data: "cars=" + JSON.stringify(normalizedCars),
-        url: "http://localhost/rest/setCars.asp",
+        url: "/setCars.asp",
       };
       let { data } = await axios(options);
       setUpdateUserCars((c) => c + 1);
@@ -82,14 +80,10 @@ const OrdersPage: FC = () => {
     try {
       const options = {
         method: "POST",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-        },
         data: `carId=${carsToRemove.id}`,
-        url: "http://localhost/rest/setReturnCar.asp",
+        url: "/setReturnCar.asp",
       };
       let { data } = await axios(options);
-      console.log("data from delete ordered car", data);
       toast.success("הרכב נמחק בהצלחה");
       setUpdateUserCars((c) => c + 1);
     } catch (err: any) {
