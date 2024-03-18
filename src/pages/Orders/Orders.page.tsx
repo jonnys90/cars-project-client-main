@@ -31,7 +31,8 @@ const OrdersPage: FC = () => {
           url: "http://localhost/rest/getCars.asp",
         };
         let { data } = await axios(options);
-        setCars(data.filter((car: Order) => car.quantity > 0));
+        console.log("Data", data);
+        // setCars(data.filter((car: Order) => car.quantity > 0));
       } catch (err: any) {
         toast.error("Something went wrong");
       }
@@ -96,6 +97,7 @@ const OrdersPage: FC = () => {
       toast.error("Something went wrong");
     }
   };
+  console.log("username", userName);
   return (
     <div className="container mx-auto px-4 sm:px-8 pt-20">
       <h1 className=" text-5xl">הרכבים של {userName}</h1>

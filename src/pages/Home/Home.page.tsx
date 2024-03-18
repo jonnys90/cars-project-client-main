@@ -7,11 +7,15 @@ import { useDispatch } from "react-redux";
 import validateLogin from "../../validation/login.validation";
 import { authActions } from "../../store/auth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../routes/ROUTES";
 
 const HomePage: FC = () => {
-  const [username, setUsername] = useState<string | number>(0);
+  const [username, setUsername] = useState<string | number>("Shlomo");
+  // const [username, setUsername] = useState<string | number>(0);
   const [errorMsg, setErrorMsg] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setUsername(e.target.value);
@@ -40,8 +44,9 @@ const HomePage: FC = () => {
       if (data.error) {
         throw new Error(data.error);
       }
-      dispatch(authActions.login(data));
+      dispatch(authActions.login(username + ""));
       toast.success("התחברות בוצעה בהצלחה");
+      navigate(ROUTES.ORDERS);
     } catch (err: any) {
       if (err.message == "user not exists") {
         toast.error("משתמש לא קיים");
