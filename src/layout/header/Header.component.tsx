@@ -23,7 +23,7 @@ const CHeader: FC = () => {
       <span>צור קשר</span>
       {isLoggedIn && <Link to={ROUTES.ORDERS}>רכבים</Link>}
       <span className="col-start-11 col-end-12 text-end">LOGO</span>
-      <button onClick={handleResetSesstion}>reset</button>
+      {/* <button onClick={handleResetSesstion}>reset</button> */}
     </div>
   );
 };

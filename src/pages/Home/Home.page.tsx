@@ -11,8 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/ROUTES";
 
 const HomePage: FC = () => {
-  const [username, setUsername] = useState<string | number>("Shlomo");
-  // const [username, setUsername] = useState<string | number>(0);
+  const [username, setUsername] = useState<string | number>(0);
   const [errorMsg, setErrorMsg] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,9 +33,6 @@ const HomePage: FC = () => {
     try {
       const options = {
         method: "POST",
-        // headers: {
-        //   "content-type": "application/x-www-form-urlencoded",
-        // },
         data: qs.stringify({ username }),
         url: "http://localhost/rest/setUser.asp",
       };
