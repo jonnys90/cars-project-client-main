@@ -11,8 +11,6 @@ interface IProps {
 }
 
 const OrderedCars: FC<IProps> = ({ myOrderedCars, onSubmit }) => {
-  //   const [newOrderCars, setNewOrderCars] = useState<Order[]>(myOrderedCars);
-  console.log("myOrderedCars", myOrderedCars);
   const handleRemoveBtnClick = (e: MouseEvent<HTMLButtonElement>) => {
     let elm = e.target as HTMLElement | null;
     while (elm && elm.nodeName != "BUTTON") {

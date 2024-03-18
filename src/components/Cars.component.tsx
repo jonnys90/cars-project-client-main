@@ -1,4 +1,4 @@
-import { FC, ChangeEventHandler, useState } from "react";
+import { FC, ChangeEventHandler, useState, useEffect } from "react";
 import { Alert, Button, Table, TextInput } from "flowbite-react";
 
 import Order from "../models/Order.model";
@@ -18,8 +18,7 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
   const [newOrderCars, setNewOrderCars] = useState<Order[]>(() => {
     const newOrderCars: Order[] = [];
     for (let car of cars) {
-      console.log("car", car);
-      if (car.quantity <= 0) continue;
+      if (+car.quantity <= 0) continue;
       newOrderCars.push(new Order(car.id, car.carName, 0));
     }
     return newOrderCars;
@@ -31,6 +30,25 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
     }
     return errorsArr;
   });
+
+  useEffect(() => {
+    setNewOrderCars((c) => {
+      const newOrderCars: Order[] = [];
+      for (let car of cars) {
+        if (+car.quantity <= 0) continue;
+        newOrderCars.push(new Order(car.id, car.carName, 0));
+      }
+      return newOrderCars;
+    });
+    setErrors((c) => {
+      const errorsArr: TErrors = {};
+      for (let car of cars) {
+        errorsArr[car.id] = undefined;
+      }
+      return errorsArr;
+    });
+  }, [cars]);
+
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     let error = validateCarQuantity({ carQuantity: e.target.value });
     let val = parseInt(e.target.value);
@@ -60,7 +78,6 @@ const Cars: FC<IProps> = ({ cars, onSubmit }) => {
     });
   };
   const handleAddBtnClick = () => {
-    console.log("newOrderCars", newOrderCars);
     onSubmit(newOrderCars);
   };
   if (newOrderCars.length == 0)
