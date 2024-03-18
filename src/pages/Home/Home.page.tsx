@@ -37,9 +37,17 @@ const HomePage: FC = () => {
         url: "http://localhost/rest/setUser.asp",
       };
       let { data } = await axios(options);
+      if (data.error) {
+        throw new Error(data.error);
+      }
       dispatch(authActions.login(data));
+      toast.success("התחברות בוצעה בהצלחה");
     } catch (err: any) {
-      toast.error("Somethign went wrong");
+      if (err.message == "user not exists") {
+        toast.error("משתמש לא קיים");
+      } else {
+        toast.error("Something went wrong");
+      }
     }
   };
   return (
